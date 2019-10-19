@@ -8,8 +8,9 @@ BGFX_COMMIT="b71cea176b190601a6a7dd51eacc3ed05e512e80"
 BX_COMMIT="a9e8a24b60d25d79ec1e5fe177b769da17f9eb67"
 BIMG_COMMIT="bd81f6030a46f9445ddc5ae42bd0a2a91cc7d83f"
 
-DOWNLOAD_DIR="downloads"
-STAGING_DIR="staging"
+DOWNLOAD_DIR="`realpath .`/downloads"
+STAGING_DIR="`realpath .`/staging"
+RUNTIME_DIR="`realpath .`/runtime"
 
 BUILD_TYPE="linux-release64"
 
@@ -41,13 +42,10 @@ function extract_one()
     mv "${STAGING_DIR}/${dirp}-${gcommit}" "${STAGING_DIR}/${dirp}"
 }
 
-if [[ ! -d "${DOWNLOAD_DIR}" ]]; then
-    mkdir "${DOWNLOAD_DIR}"
-fi
-
-if [[ ! -d "${STAGING_DIR}" ]]; then
-    mkdir "${STAGING_DIR}"
-fi
+install -D -d -m 00755 "${DOWNLOAD_DIR}"
+install -D -d -m 00755 "${STAGING_DIR}"
+install -D -d -m 00755 "${RUNTIME_DIR}/bin"
+install -D -d -m 00755 "${RUNTIME_DIR}/lib"
 
 download_one "bgfx.zip" "https://github.com/bkaradzic/bgfx/archive/${BGFX_COMMIT}.zip"
 download_one "bimg.zip" "https://github.com/bkaradzic/bimg/archive/${BIMG_COMMIT}.zip"
@@ -76,14 +74,11 @@ pushd staging/bgfx/
 make "${BUILD_TYPE}" -j`nproc`
 popd
 
-mkdir -p bin
-mkdir -p lib
-
 # Install tooling
 for tool in "shaderc" "texturec" "texturev"; do
-    install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/${tool}Release"  "./bin/${tool}"
+    install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/${tool}Release"  "${RUNTIME_DIR}/bin/${tool}"
 done
 
 # Install runtime libs
-install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/"*.so "./lib/."
-install -m 00644 "staging/bgfx/.build/linux64_gcc/bin/"*.a "./lib/."
+install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/"*.so "${RUNTIME_DIR}/lib/."
+install -m 00644 "staging/bgfx/.build/linux64_gcc/bin/"*.a "${RUNTIME_DIR}/lib/."
