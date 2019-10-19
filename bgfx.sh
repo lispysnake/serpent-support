@@ -9,6 +9,7 @@ BX_COMMIT="a9e8a24b60d25d79ec1e5fe177b769da17f9eb67"
 BIMG_COMMIT="bd81f6030a46f9445ddc5ae42bd0a2a91cc7d83f"
 
 DOWNLOAD_DIR="downloads"
+STAGING_DIR="staging"
 
 # Helper to download a URL to a filename
 function download_one()
@@ -24,10 +25,31 @@ function download_one()
     wget "${url}" -O "${DOWNLOAD_DIR}/${filename}"
 }
 
+function extract_one()
+{
+    local filename="$1"
+    local dirp="${filename%.zip}"
+    if [[ -e "${STAGING_DIR}/${dirp}" ]]; then
+        echo "Skipping extraction of ${filename}"
+        return
+    fi
+    echo "Extracting ${filename}"
+    unzip "${DOWNLOAD_DIR}/${filename}" -d "${STAGING_DIR}/${dirp}"
+}
+
 if [[ ! -d "${DOWNLOAD_DIR}" ]]; then
     mkdir "${DOWNLOAD_DIR}"
+fi
+
+if [[ ! -d "${STAGING_DIR}" ]]; then
+    mkdir "${STAGING_DIR}"
 fi
 
 download_one "bgfx.zip" "https://github.com/bkaradzic/bgfx/archive/${BGFX_COMMIT}.zip"
 download_one "bimg.zip" "https://github.com/bkaradzic/bimg/archive/${BIMG_COMMIT}.zip"
 download_one "bx.zip" "https://github.com/bkaradzic/bx/archive/${BX_COMMIT}.zip"
+
+
+extract_one "bgfx.zip"
+extract_one "bimg.zip"
+extract_one "bx.zip"
