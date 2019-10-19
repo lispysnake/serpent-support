@@ -75,3 +75,15 @@ echo "Building bgfx"
 pushd staging/bgfx/
 make "${BUILD_TYPE}" -j`nproc`
 popd
+
+mkdir -p bin
+mkdir -p lib
+
+# Install tooling
+for tool in "shaderc" "texturec" "texturev"; do
+    install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/${tool}Release"  "./bin/${tool}"
+done
+
+# Install runtime libs
+install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/"*.so "./lib/."
+install -m 00644 "staging/bgfx/.build/linux64_gcc/bin/"*.a "./lib/."
