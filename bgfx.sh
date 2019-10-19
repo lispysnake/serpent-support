@@ -28,13 +28,15 @@ function download_one()
 function extract_one()
 {
     local filename="$1"
+    local gcommit="$2"
     local dirp="${filename%.zip}"
     if [[ -e "${STAGING_DIR}/${dirp}" ]]; then
         echo "Skipping extraction of ${filename}"
         return
     fi
     echo "Extracting ${filename}"
-    unzip "${DOWNLOAD_DIR}/${filename}" -d "${STAGING_DIR}/${dirp}"
+    unzip "${DOWNLOAD_DIR}/${filename}" -d "${STAGING_DIR}"
+    mv "${STAGING_DIR}/${dirp}-${gcommit}" "${STAGING_DIR}/${dirp}"
 }
 
 if [[ ! -d "${DOWNLOAD_DIR}" ]]; then
@@ -50,6 +52,6 @@ download_one "bimg.zip" "https://github.com/bkaradzic/bimg/archive/${BIMG_COMMIT
 download_one "bx.zip" "https://github.com/bkaradzic/bx/archive/${BX_COMMIT}.zip"
 
 
-extract_one "bgfx.zip"
-extract_one "bimg.zip"
-extract_one "bx.zip"
+extract_one "bgfx.zip" "${BGFX_COMMIT}"
+extract_one "bimg.zip" "${BIMG_COMMIT}"
+extract_one "bx.zip" "${BX_COMMIT}"
