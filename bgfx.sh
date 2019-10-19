@@ -11,6 +11,8 @@ BIMG_COMMIT="bd81f6030a46f9445ddc5ae42bd0a2a91cc7d83f"
 DOWNLOAD_DIR="downloads"
 STAGING_DIR="staging"
 
+BUILD_TYPE="linux-release64"
+
 # Helper to download a URL to a filename
 function download_one()
 {
@@ -55,3 +57,21 @@ download_one "bx.zip" "https://github.com/bkaradzic/bx/archive/${BX_COMMIT}.zip"
 extract_one "bgfx.zip" "${BGFX_COMMIT}"
 extract_one "bimg.zip" "${BIMG_COMMIT}"
 extract_one "bx.zip" "${BX_COMMIT}"
+
+export CXX="ccache g++"
+export CC="ccache gcc"
+
+echo "Building bx"
+pushd staging/bx/
+make "${BUILD_TYPE}" -j`nproc`
+popd
+
+echo "Building bimg"
+pushd staging/bimg/
+make "${BUILD_TYPE}" -j`nproc`
+popd
+
+echo "Building bgfx"
+pushd staging/bgfx/
+make "${BUILD_TYPE}" -j`nproc`
+popd
