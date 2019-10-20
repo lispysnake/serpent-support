@@ -11,6 +11,9 @@ build the relevant runtime requirements, like bgfx.
 `zip` files instead of using submodules like we should. Once my internet
 behaves we'll fix it.
 
+Additionally the scripts are severely context limited in believing you
+only want to build for 64-bit Linux with GCC.
+
 ## Scripts
 
 As and when new scripts are added (which ofc will be replaced in future..)
