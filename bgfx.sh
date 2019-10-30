@@ -4,9 +4,9 @@ set -e
 # We could use submodules and whatnot, but honestly my internet is so god-awful
 # im relying on this weird build helper.
 
-BGFX_COMMIT="b71cea176b190601a6a7dd51eacc3ed05e512e80"
-BX_COMMIT="a9e8a24b60d25d79ec1e5fe177b769da17f9eb67"
-BIMG_COMMIT="bd81f6030a46f9445ddc5ae42bd0a2a91cc7d83f"
+BGFX_COMMIT="2edbd06ef6f1834a6aed5a75d7fa07f7ac9f4067"
+BX_COMMIT="267727d31899996c0c0dd1613fc30b9751d71314"
+BIMG_COMMIT="52312370d59e44b5a9811c2ecb44fb6764cdd90b"
 
 DOWNLOAD_DIR="`realpath .`/downloads"
 STAGING_DIR="`realpath .`/staging"
