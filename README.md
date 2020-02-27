@@ -30,7 +30,7 @@ Build dependencies:
 If you're running Solus, this one liner will fetch all build dependencies
 needed for serpent-support (and most for `serpent`)
 
-        sudo eopkg it -c system.devel sdl2-image-devel sdl2-devel mesalib-devel
+        sudo eopkg it -c system.devel sdl2-image-devel sdl2-devel mesalib-devel libpng-devel
 
 
 ## License
