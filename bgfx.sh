@@ -71,7 +71,8 @@ popd
 
 echo "Building bgfx"
 pushd staging/bgfx/
-make "${BUILD_TYPE}" -j`nproc`
+../bx/tools/bin/linux/genie --with-tools --with-shared-lib --with-wayland --gcc=linux-gcc gmake
+make -R -C .build/projects/gmake-linux config=release64 -j`nproc`
 popd
 
 # Install tooling
