@@ -14,9 +14,6 @@ RUNTIME_DIR="`realpath .`/runtime"
 
 BUILD_TYPE="linux-release64"
 
-# Causes issues with serpent linking on Solus
-export LD_AS_NEEDED=1
-
 # Helper to download a URL to a filename
 function download_one()
 {
@@ -84,5 +81,12 @@ for tool in "shaderc" "texturec" "texturev"; do
 done
 
 # Install runtime libs
-install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/"*.so "${RUNTIME_DIR}/lib/."
-install -m 00644 "staging/bgfx/.build/linux64_gcc/bin/"*.a "${RUNTIME_DIR}/lib/."
+# TODO: Add a proper soname + versioning.
+install -m 00755 "staging/bgfx/.build/linux64_gcc/bin/"*.so "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0.0.0"
+
+# Link it
+ln -sv libbgfxRelease-shared.so.0.0.0 "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so"
+ln -sv libbgfxRelease-shared.so.0.0.0 "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0"
+
+# Strip it (lose nearly 13MB.)
+strip -g "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0"
