@@ -14,6 +14,9 @@ RUNTIME_DIR="`realpath .`/runtime"
 
 BUILD_TYPE="linux-release64"
 
+# Causes issues with serpent linking on Solus
+export LD_AS_NEEDED=1
+
 # Helper to download a URL to a filename
 function download_one()
 {
