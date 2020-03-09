@@ -1,4 +1,4 @@
-# serpent-runtime
+# serpent-support
 
 Work in progress tree that will eventually be refactored as part of a
 larger (more standard) build system to bootstrap runtime requirements
@@ -21,8 +21,7 @@ we'll document them here.
 
 ### bgfx
 
-Fetch `bgfx`, `bimg` and `bx`, building them for a local deployment. Builds
-the main release library, along with the `shaderc`, `texturec` and `texturev`
+Builds the main release library, along with the `shaderc`, `texturec` and `texturev`
 CLI tools.
 
 Build dependencies:
