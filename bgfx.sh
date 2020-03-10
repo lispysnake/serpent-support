@@ -22,16 +22,5 @@ for tool in "shaderc" "texturec" "texturev"; do
     install -m 00755 ".build/linux64_gcc/bin/${tool}Release"  "${RUNTIME_DIR}/bin/${tool}"
 done
 
-# Install runtime libs
-# TODO: Add a proper soname + versioning.
-install -m 00755 ".build/linux64_gcc/bin/"*.so "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0.0.0"
-
 # Install static variants
 install -m 00755 ".build/linux64_gcc/bin/"*.a "${RUNTIME_DIR}/lib/."
-
-# Link it
-ln -sv libbgfxRelease-shared.so.0.0.0 "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so"
-ln -sv libbgfxRelease-shared.so.0.0.0 "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0"
-
-# Strip it (lose nearly 13MB.)
-strip -g "${RUNTIME_DIR}/lib/libbgfxRelease-shared.so.0"

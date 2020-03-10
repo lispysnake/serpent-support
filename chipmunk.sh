@@ -16,5 +16,4 @@ cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -Dprefix=/usr
 make -j`nproc`
 
 echo "Installing Chipmunk2D"
-cp -v --no-dereference src/*.so* "${RUNTIME_DIR}/lib/."
 install -m 00755 src/*.a "${RUNTIME_DIR}/lib/." -v
