@@ -12,7 +12,7 @@ export CC="ccache gcc"
 
 echo "Configuring Chipmunk2D"
 pushd external/Chipmunk2D
-cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -Dprefix=/usr
+cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOpenGL_GL_PREFERENCE=LEGACY -DBUILD_DEMOS=OFF -G "Unix Makefiles" -Dprefix=/usr
 make -j`nproc`
 
 echo "Installing Chipmunk2D"
