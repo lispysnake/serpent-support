@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+. common.sh
+
 RUNTIME_DIR="`realpath .`/runtime"
 EXTERNAL_DIR="`realpath ./external`"
 
