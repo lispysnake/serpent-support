@@ -12,9 +12,13 @@ install -D -d -m 00755 "${RUNTIME_DIR}/lib"
 export CXX="ccache g++"
 export CC="ccache gcc"
 
+# TODO: Investigate using floats.
+export CFLAGS="$CFLAGS -DCP_USE_DOUBLES=1"
+export CXXFLAGS="$CXXFLAGS -DCP_USE_DOUBLES=1"
+
 echo "Configuring Chipmunk2D"
 pushd external/Chipmunk2D
-cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOpenGL_GL_PREFERENCE=LEGACY -DBUILD_DEMOS=OFF -G "Unix Makefiles" -Dprefix=/usr
+cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -DOpenGL_GL_PREFERENCE=LEGACY -DBUILD_DEMOS=OFF -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_C_FLAGS="$CFLAGS" -DCMAKE_CXX_FLAGS="$CXXFLAGS"
 make -j`nproc`
 
 echo "Installing Chipmunk2D"
