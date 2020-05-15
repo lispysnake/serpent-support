@@ -19,6 +19,10 @@ git submodule update --init --recursive external/bx
 git submodule update --init --recursive external/bimg
 git submodule update --init --recursive external/bgfx
 
+echo "Cleaning build..."
+rm -f "${RUNTIME_DIR}/bin/"{texturec,texturev,shaderc}
+rm -f "${RUNTIME_DIR}/lib/"lib*Release*
+
 echo "Configuring bgfx"
 pushd external/bgfx
 BX_DIR="${EXTERNAL_DIR}/bx" BIMG_DIR="${EXTERNAL_DIR}/bimg" ${EXTERNAL_DIR}/bx/tools/bin/linux/genie --with-tools --with-shared-lib --with-wayland --gcc=linux-gcc gmake
