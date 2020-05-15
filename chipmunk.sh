@@ -9,6 +9,12 @@ EXTERNAL_DIR="`realpath ./external`"
 install -D -d -m 00755 "${RUNTIME_DIR}/bin"
 install -D -d -m 00755 "${RUNTIME_DIR}/lib"
 
+echo "Cleaning Chipmunk2D"
+rm -rf external/Chipmunk2D
+
+echo "Initialising Chipmunk2D"
+git submodule update --init --recursive external/Chipmunk2D
+
 export CXX="ccache g++"
 export CC="ccache gcc"
 
