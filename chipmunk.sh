@@ -15,6 +15,9 @@ rm -rf external/Chipmunk2D
 echo "Initialising Chipmunk2D"
 git submodule update --init --recursive external/Chipmunk2D
 
+echo "Cleaning build..."
+rm -f "${RUNTIME_DIR}/lib/"*chipmunk*
+
 export CXX="ccache g++"
 export CC="ccache gcc"
 
